@@ -1,4 +1,6 @@
 # Bank accounts API
+[![Build status](https://github.com/d-luk/bank-accounts-api/workflows/Build/badge.svg)](https://github.com/d-luk/bank-accounts-api/actions)
+
 A small web API for experimenting with ASP.NET Core.
 
 ## Starting the server
