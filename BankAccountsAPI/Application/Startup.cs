@@ -31,9 +31,9 @@ namespace BankAccountsAPI.Application
             services.AddSingleton<IAccountRepository, AccountRepository>();
             services.AddSingleton<ICustomerRepository, CustomerRepository>();
             services.AddSingleton<ITransactionRepository, TransactionRepository>();
+            services.AddSingleton<IAccountService, AccountService>();
             services.AddSingleton<AccountService.IUnitOfWork, AccountServiceUnitOfWork>();
 
-            services.AddSingleton<AccountService>();
             services.AddSingleton<AccountRepository>();
             services.AddSingleton<TransactionRepository>();
 

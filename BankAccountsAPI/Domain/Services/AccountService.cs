@@ -5,7 +5,7 @@ using System;
 
 namespace BankAccountsAPI.Domain.Services
 {
-    public sealed class AccountService
+    public sealed class AccountService : IAccountService
     {
         private readonly ICustomerRepository customerRepository;
         private readonly IUnitOfWork unitOfWork;

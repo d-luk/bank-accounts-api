@@ -11,17 +11,17 @@ namespace BankAccountsAPI.Application.Controllers
     public sealed class CustomersController : ControllerBase
     {
         private readonly ICustomerRepository customerRepository;
-        private readonly IAccountRepository accountsRepository;
+        private readonly IAccountRepository accountRepository;
         private readonly ITransactionRepository transactionRepository;
 
         public CustomersController(
             ICustomerRepository customerRepository,
-            IAccountRepository accountsRepository,
+            IAccountRepository accountRepository,
             ITransactionRepository transactionRepository
         )
         {
             this.customerRepository = customerRepository;
-            this.accountsRepository = accountsRepository;
+            this.accountRepository = accountRepository;
             this.transactionRepository = transactionRepository;
         }
 
@@ -32,11 +32,7 @@ namespace BankAccountsAPI.Application.Controllers
 
             if (customer == null)
             {
-                return NotFound(new
-                {
-                    Code = "CUSTOMER_NOT_FOUND",
-                    Message = $"Customer {id} does not exist"
-                });
+                return NotFound(new ErrorResponse("CUSTOMER_NOT_FOUND", $"Customer {id} does not exist"));
             }
 
             return CreateResponse(customer);
@@ -44,7 +40,7 @@ namespace BankAccountsAPI.Application.Controllers
 
         private CustomerResponse CreateResponse(Customer customer)
         {
-            var accounts = accountsRepository.FindForCustomer(customer.ID);
+            var accounts = accountRepository.FindForCustomer(customer.ID);
 
             var accountResponses = accounts.Select(account =>
             {

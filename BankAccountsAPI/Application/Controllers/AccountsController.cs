@@ -13,12 +13,12 @@ namespace BankAccountsAPI.Application.Controllers
     public sealed class AccountsController : ControllerBase
     {
         private readonly ICustomerRepository customerRepository;
-        private readonly AccountService accountService;
+        private readonly IAccountService accountService;
         private readonly ITransactionRepository transactionRepository;
 
         public AccountsController(
             ICustomerRepository customerRepository,
-            AccountService accountService,
+            IAccountService accountService,
             ITransactionRepository transactionRepository
         )
         {
@@ -32,11 +32,10 @@ namespace BankAccountsAPI.Application.Controllers
         {
             if (!customerRepository.Exists(customerID))
             {
-                return NotFound(new
-                {
-                    Code = "CUSTOMER_NOT_FOUND",
-                    Message = $"Customer {customerID} does not exist"
-                });
+                return NotFound(new ErrorResponse(
+                    "CUSTOMER_NOT_FOUND",
+                    $"Customer {customerID} does not exist"
+                ));
             }
 
             var initialCreditEuroCents = (int) Math.Floor(initialCreditEuros * 100);
