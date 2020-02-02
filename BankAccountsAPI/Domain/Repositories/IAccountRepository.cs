@@ -1,4 +1,4 @@
-﻿using BankAccountsAPI.Domain.Models;
+﻿using BankAccountsAPI.Domain.Entities;
 using System.Collections.Generic;
 
 namespace BankAccountsAPI.Domain.Repositories

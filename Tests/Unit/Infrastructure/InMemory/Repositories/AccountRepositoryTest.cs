@@ -2,7 +2,7 @@ using Xunit;
 using BankAccountsAPI.Infrastructure.InMemory;
 using BankAccountsAPI.Infrastructure.InMemory.Repositories;
 using System.Linq;
-using BankAccountsAPI.Domain.Models;
+using BankAccountsAPI.Domain.Entities;
 
 namespace Tests.Unit.Infrastructure.InMemory.Repositories
 {

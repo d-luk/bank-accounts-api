@@ -11,16 +11,16 @@ namespace BankAccountsAPI.Application.Responses
         public string Name { get; }
         public string Surname { get; }
         public IEnumerable<Account> Accounts { get; }
-        public float TotalBalanceEuros { get; }
+        public decimal TotalBalance { get; }
 
-        public CustomerResponse(int id, string name, string surname, Account[] accounts)
+        public CustomerResponse(int id, string name, string surname, IEnumerable<Account> accounts)
         {
             ID = id;
             Name = name;
             Surname = surname;
             Accounts = accounts;
 
-            TotalBalanceEuros = accounts.Select(account => account.BalanceEuros).Sum();
+            TotalBalance = accounts.Select(account => account.Balance).Sum();
         }
 
         [Serializable]
@@ -28,23 +28,23 @@ namespace BankAccountsAPI.Application.Responses
         {
             public int ID { get; }
             public IEnumerable<Transaction> Transactions { get; }
-            public float BalanceEuros { get; }
+            public decimal Balance { get; }
 
-            public Account(int id, Transaction[] transactions)
+            public Account(int id, IEnumerable<Transaction> transactions)
             {
                 ID = id;
                 Transactions = transactions;
-                BalanceEuros = transactions.Select(transaction => transaction.Euros).Sum();
+                Balance = transactions.Select(transaction => transaction.Value).Sum();
             }
 
             [Serializable]
             public sealed class Transaction
             {
-                public float Euros { get; }
+                public decimal Value { get; }
 
-                public Transaction(float euros)
+                public Transaction(decimal amount)
                 {
-                    Euros = euros;
+                    Value = amount;
                 }
             }
         }

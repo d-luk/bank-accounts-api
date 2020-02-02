@@ -1,4 +1,5 @@
-﻿using BankAccountsAPI.Domain.Models;
+﻿using BankAccountsAPI.Domain.Entities;
+using BankAccountsAPI.Domain.ValueObjects;
 using BankAccountsAPI.Infrastructure.InMemory;
 using Xunit;
 
@@ -15,7 +16,7 @@ namespace Tests.Unit.Infrastructure.InMemory
             var testCustomer = new Customer(1, "John", "Doe");
             originalDatabase.Customers.Add(testCustomer);
 
-            var testTransaction = new Transaction(2, 3, 4);
+            var testTransaction = new Transaction(2, 3, new Money(4m));
             originalDatabase.Transactions.Add(testTransaction);
 
             var testAccount = new Account(5, 6);

@@ -1,4 +1,5 @@
-﻿using BankAccountsAPI.Infrastructure.InMemory;
+﻿using BankAccountsAPI.Domain.ValueObjects;
+using BankAccountsAPI.Infrastructure.InMemory;
 using BankAccountsAPI.Infrastructure.InMemory.UnitsOfWork;
 using Xunit;
 
@@ -46,7 +47,7 @@ namespace Tests.Unit.Infrastructure.InMemory.UnitsOfWork
                 Assert.Empty(database.Transactions);
                 Assert.Empty(unitOfWork.TransactionRepository.FindForAccount(accountID));
 
-                unitOfWork.TransactionRepository.Create(accountID, 999);
+                unitOfWork.TransactionRepository.Create(accountID, new Money(999m));
 
                 Assert.Empty(database.Transactions);
                 Assert.Single(unitOfWork.TransactionRepository.FindForAccount(accountID));

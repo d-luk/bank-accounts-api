@@ -1,7 +1,8 @@
 ﻿using BankAccountsAPI.Application.Controllers;
 using BankAccountsAPI.Application.Responses;
-using BankAccountsAPI.Domain.Models;
+using BankAccountsAPI.Domain.Entities;
 using BankAccountsAPI.Domain.Repositories;
+using BankAccountsAPI.Domain.ValueObjects;
 using BankAccountsAPI.Infrastructure.InMemory;
 using BankAccountsAPI.Infrastructure.InMemory.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,7 @@ namespace Tests.Unit.Application.Controllers
             var database = new Database();
             database.Customers.Add(new Customer(customerID, "CUSTOMER_NAME", "CUSTOMER_SURNAME"));
             database.Accounts.Add(new Account(accountID, customerID));
-            database.Transactions.Add(new Transaction(id: 5, accountID, euroCents: 12_50));
+            database.Transactions.Add(new Transaction(id: 5, accountID, new Money(12.50m)));
 
             var controller = new CustomersController(
                 new CustomerRepository(database),
@@ -39,14 +40,14 @@ namespace Tests.Unit.Application.Controllers
             Assert.Equal(customerID, response.ID);
             Assert.Equal("CUSTOMER_NAME", response.Name);
             Assert.Equal("CUSTOMER_SURNAME", response.Surname);
-            Assert.Equal(12.50, response.TotalBalanceEuros);
+            Assert.Equal(12.50m, response.TotalBalance);
 
             var account = Assert.Single(response.Accounts);
             Assert.Equal(accountID, account.ID);
-            Assert.Equal(12.50, account.BalanceEuros);
+            Assert.Equal(12.50m, account.Balance);
 
             var transaction = Assert.Single(account.Transactions);
-            Assert.Equal(12.50, transaction.Euros);
+            Assert.Equal(12.50m, transaction.Value);
         }
 
         [Fact]

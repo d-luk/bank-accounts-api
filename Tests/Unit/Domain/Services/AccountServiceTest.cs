@@ -1,5 +1,6 @@
 ﻿using BankAccountsAPI.Domain.Exceptions;
 using BankAccountsAPI.Domain.Services;
+using BankAccountsAPI.Domain.ValueObjects;
 using BankAccountsAPI.Infrastructure.InMemory;
 using BankAccountsAPI.Infrastructure.InMemory.Repositories;
 using BankAccountsAPI.Infrastructure.InMemory.UnitsOfWork;
@@ -19,10 +20,10 @@ namespace Tests.Unit.Domain.Services
             var service = new AccountService(customerRepository, unitOfWork);
 
             var customerID = customerRepository.Create("John", "Doe").ID;
-            var initialCreditEuroCents = 17_50;
+            var initialCredit = new Money(17.50m);
 
             // Act
-            var createdAccount = service.Create(customerID, initialCreditEuroCents);
+            var createdAccount = service.Create(customerID, initialCredit);
 
             // Assert that an account is created correctly
             Assert.Single(database.Accounts);
@@ -34,7 +35,7 @@ namespace Tests.Unit.Domain.Services
             var createdTransaction = database.Transactions[0];
 
             Assert.Equal(createdAccount.ID, createdTransaction.AccountID);
-            Assert.Equal(initialCreditEuroCents, createdTransaction.EuroCents);
+            Assert.Equal(initialCredit, createdTransaction.Value);
         }
 
         [Fact]
@@ -48,7 +49,7 @@ namespace Tests.Unit.Domain.Services
 
             // Act
             var customerID = customerRepository.Create("John", "Doe").ID;
-            var createdAccount = service.Create(customerID, 0);
+            var createdAccount = service.Create(customerID, new Money(0m));
 
             // Assert
             Assert.Single(database.Accounts);
@@ -70,7 +71,7 @@ namespace Tests.Unit.Domain.Services
             var notExistingCustomerID = 12345;
 
             // Act
-            void act() => service.Create(notExistingCustomerID, 17_50);
+            void act() => service.Create(notExistingCustomerID, new Money(17.50m));
 
             // Assert
             Assert.Throws<ModelNotFoundException>(act);

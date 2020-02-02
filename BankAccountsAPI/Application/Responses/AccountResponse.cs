@@ -10,25 +10,24 @@ namespace BankAccountsAPI.Application.Responses
         public int ID { get; }
         public int CustomerID { get; }
         public IEnumerable<Transaction> Transactions { get; }
-        public float BalanceEuros { get; }
+        public decimal Balance { get; }
 
-        public AccountResponse(int id, int customerID, Transaction[] transactions)
+        public AccountResponse(int id, int customerID, IEnumerable<Transaction> transactions)
         {
             ID = id;
             CustomerID = customerID;
             Transactions = transactions;
-
-            BalanceEuros = transactions.Select(transaction => transaction.Euros).Sum();
+            Balance = transactions.Select(transaction => transaction.Value).Sum();
         }
 
         [Serializable]
         public sealed class Transaction
         {
-            public float Euros { get; }
+            public decimal Value { get; }
 
-            public Transaction(float euros)
+            public Transaction(decimal amount)
             {
-                Euros = euros;
+                Value = amount;
             }
         }
     }

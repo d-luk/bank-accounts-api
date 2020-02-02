@@ -1,6 +1,6 @@
 ﻿using BankAccountsAPI.Application.Controllers;
 using BankAccountsAPI.Application.Responses;
-using BankAccountsAPI.Domain.Models;
+using BankAccountsAPI.Domain.Entities;
 using BankAccountsAPI.Domain.Repositories;
 using BankAccountsAPI.Domain.Services;
 using BankAccountsAPI.Infrastructure.InMemory;
@@ -20,7 +20,7 @@ namespace Tests.Unit.Application.Controllers
         {
             // Arrange
             var customerID = 123;
-            var initialCredit = 12.75f;
+            var initialCredit = 12.75m;
 
             var database = new Database();
             database.Customers.Add(new Customer(customerID, "John", "Doe"));
@@ -43,8 +43,8 @@ namespace Tests.Unit.Application.Controllers
             Assert.Equal(0, response.ID);
             Assert.Equal(customerID, response.CustomerID);
             Assert.Single(response.Transactions);
-            Assert.Equal(initialCredit, response.Transactions.First().Euros);
-            Assert.Equal(initialCredit, response.BalanceEuros);
+            Assert.Equal(initialCredit, response.Transactions.First().Value);
+            Assert.Equal(initialCredit, response.Balance);
         }
 
         [Fact]
@@ -75,7 +75,7 @@ namespace Tests.Unit.Application.Controllers
             Assert.Equal(0, response.ID);
             Assert.Equal(customerID, response.CustomerID);
             Assert.Empty(response.Transactions);
-            Assert.Equal(initialCredit, response.BalanceEuros);
+            Assert.Equal(initialCredit, response.Balance);
         }
 
         [Fact]
@@ -94,7 +94,7 @@ namespace Tests.Unit.Application.Controllers
             );
 
             // Act
-            var actionResult = controller.Create(customerID, 12_75);
+            var actionResult = controller.Create(customerID, 12.75m);
 
             // Assert
             var notFoundResult = Assert.IsType<NotFoundObjectResult>(actionResult.Result);
