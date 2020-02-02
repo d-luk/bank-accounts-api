@@ -1,5 +1,5 @@
 ﻿using BankAccountsAPI.Application.Responses;
-using BankAccountsAPI.Domain.Models;
+using BankAccountsAPI.Domain.Entities;
 using BankAccountsAPI.Domain.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -45,7 +45,7 @@ namespace BankAccountsAPI.Application.Controllers
             var accountResponses = accounts.Select(account =>
             {
                 var transactions = transactionRepository.FindForAccount(account.ID);
-                var transactionResponses = transactions.Select(transaction => new CustomerResponse.Account.Transaction(transaction.EuroCents / 100f));
+                var transactionResponses = transactions.Select(transaction => new CustomerResponse.Account.Transaction(transaction.Value.Amount));
 
                 return new CustomerResponse.Account(account.ID, transactionResponses.ToArray());
             });

@@ -25,7 +25,7 @@ namespace BankAccountsAPI.Application
         {
             // Using in-memory database implementations
             var inMemoryDatabase = new Database();
-            inMemoryDatabase.Customers.Add(new Domain.Models.Customer(0, "John", "Doe"));
+            inMemoryDatabase.Customers.Add(new Domain.Entities.Customer(0, "John", "Doe"));
 
             services.AddSingleton(inMemoryDatabase);
             services.AddSingleton<IAccountRepository, AccountRepository>();

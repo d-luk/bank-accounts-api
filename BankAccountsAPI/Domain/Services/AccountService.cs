@@ -1,7 +1,8 @@
 ﻿using BankAccountsAPI.Domain.Exceptions;
-using BankAccountsAPI.Domain.Models;
+using BankAccountsAPI.Domain.Entities;
 using BankAccountsAPI.Domain.Repositories;
 using System;
+using BankAccountsAPI.Domain.ValueObjects;
 
 namespace BankAccountsAPI.Domain.Services
 {
@@ -16,7 +17,7 @@ namespace BankAccountsAPI.Domain.Services
             this.unitOfWork = unitOfWork;
         }
 
-        public Account Create(int customerID, int initialCreditEuroCents = 0)
+        public Account Create(int customerID, Money? initialCredit = null)
         {
             if (!customerRepository.Exists(customerID))
             {
@@ -27,9 +28,9 @@ namespace BankAccountsAPI.Domain.Services
 
             var account = unitOfWork.AccountRepository.Create(customerID);
 
-            if (initialCreditEuroCents != 0)
+            if (initialCredit.HasValue && initialCredit.Value.Amount != 0)
             {
-                unitOfWork.TransactionRepository.Create(account.ID, initialCreditEuroCents);
+                unitOfWork.TransactionRepository.Create(account.ID, initialCredit.Value);
             }
 
             unitOfWork.Commit();

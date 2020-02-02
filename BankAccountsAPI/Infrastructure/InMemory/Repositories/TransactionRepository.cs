@@ -1,5 +1,6 @@
-﻿using BankAccountsAPI.Domain.Models;
+﻿using BankAccountsAPI.Domain.Entities;
 using BankAccountsAPI.Domain.Repositories;
+using BankAccountsAPI.Domain.ValueObjects;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,12 +15,12 @@ namespace BankAccountsAPI.Infrastructure.InMemory.Repositories
             this.database = database;
         }
 
-        public Transaction Create(int accountID, int euroCents)
+        public Transaction Create(int accountID, Money money)
         {
             var transaction = new Transaction(
                 database.IDGenerator.GenerateFor<Transaction>(),
                 accountID,
-                euroCents
+                money
             );
 
             database.Transactions.Add(transaction);

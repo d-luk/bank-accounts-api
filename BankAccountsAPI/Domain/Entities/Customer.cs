@@ -1,4 +1,4 @@
-namespace BankAccountsAPI.Domain.Models
+namespace BankAccountsAPI.Domain.Entities
 {
     public sealed class Customer
     {

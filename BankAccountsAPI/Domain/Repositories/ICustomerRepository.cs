@@ -1,5 +1,5 @@
 ﻿
-using BankAccountsAPI.Domain.Models;
+using BankAccountsAPI.Domain.Entities;
 
 namespace BankAccountsAPI.Domain.Repositories
 {

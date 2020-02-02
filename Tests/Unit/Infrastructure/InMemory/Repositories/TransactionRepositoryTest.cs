@@ -2,7 +2,8 @@ using Xunit;
 using BankAccountsAPI.Infrastructure.InMemory;
 using BankAccountsAPI.Infrastructure.InMemory.Repositories;
 using System.Linq;
-using BankAccountsAPI.Domain.Models;
+using BankAccountsAPI.Domain.Entities;
+using BankAccountsAPI.Domain.ValueObjects;
 
 namespace Tests.Unit.Infrastructure.InMemory.Repositories
 {
@@ -15,12 +16,12 @@ namespace Tests.Unit.Infrastructure.InMemory.Repositories
             var database = new Database();
 
             var accountID = 123;
-            var euroCents = 321;
+            var value = new Money(321m);
 
             var repository = new TransactionRepository(database);
 
             // Act
-            var createdTransaction = repository.Create(accountID, euroCents);
+            var createdTransaction = repository.Create(accountID, value);
 
             // Assert
             Assert.Single(database.Transactions);
@@ -28,7 +29,7 @@ namespace Tests.Unit.Infrastructure.InMemory.Repositories
 
             Assert.Equal(0, createdTransaction.ID);
             Assert.Equal(accountID, createdTransaction.AccountID);
-            Assert.Equal(euroCents, createdTransaction.EuroCents);
+            Assert.Equal(value, createdTransaction.Value);
         }
 
         [Fact]
@@ -39,9 +40,9 @@ namespace Tests.Unit.Infrastructure.InMemory.Repositories
             var repository = new TransactionRepository(database);
 
             // Act
-            var transaction1 = repository.Create(30, 53);
-            var transaction2 = repository.Create(2, 6);
-            var transaction3 = repository.Create(16, 20);
+            var transaction1 = repository.Create(30, new Money(53m));
+            var transaction2 = repository.Create(2, new Money(6m));
+            var transaction3 = repository.Create(16, new Money(20m));
 
             // Assert
             Assert.Equal(0, transaction1.ID);
@@ -54,8 +55,8 @@ namespace Tests.Unit.Infrastructure.InMemory.Repositories
         {
             // Arrange
             var accountID = 123;
-            var transaction1 = new Transaction(3, accountID, 40);
-            var transaction2 = new Transaction(20, accountID, 34);
+            var transaction1 = new Transaction(3, accountID, new Money(40m));
+            var transaction2 = new Transaction(20, accountID, new Money(34m));
 
             var database = new Database();
             database.Transactions.Add(transaction1);
