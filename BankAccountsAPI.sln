@@ -1,11 +1,12 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankAccountsAPI", "BankAccountsAPI\BankAccountsAPI.csproj", "{312705DF-A443-44CC-9F47-1E56C00EC32E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankAccountsAPI", "BankAccountsAPI\BankAccountsAPI.csproj", "{312705DF-A443-44CC-9F47-1E56C00EC32E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{3C60E3BB-1E59-4B77-825B-19406E41554D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{3C60E3BB-1E59-4B77-825B-19406E41554D}"
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "WebClient", "WebClient\WebClient.njsproj", "{298791CE-09B1-409D-AFE9-DCF46F774F7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +22,10 @@ Global
 		{3C60E3BB-1E59-4B77-825B-19406E41554D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C60E3BB-1E59-4B77-825B-19406E41554D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C60E3BB-1E59-4B77-825B-19406E41554D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{298791CE-09B1-409D-AFE9-DCF46F774F7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{298791CE-09B1-409D-AFE9-DCF46F774F7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{298791CE-09B1-409D-AFE9-DCF46F774F7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{298791CE-09B1-409D-AFE9-DCF46F774F7A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

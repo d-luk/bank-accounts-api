@@ -23,6 +23,8 @@ namespace BankAccountsAPI.Application
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+
             // Using in-memory database implementations
             var inMemoryDatabase = new Database();
             inMemoryDatabase.Customers.Add(new Domain.Entities.Customer(0, "John", "Doe"));
@@ -50,6 +52,12 @@ namespace BankAccountsAPI.Application
 
             app.UseHttpsRedirection();
             app.UseRouting();
+
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+            );
+
             app.UseAuthorization();
             app.UseEndpoints(endpoints => endpoints.MapControllers());
         }

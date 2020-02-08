@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BankAccountsAPI\BankAccountsAPI.csproj" />
+    <ProjectReference Include="..\BankAccountsAPI\WebAPI.csproj" />
   </ItemGroup>
 
 </Project>
